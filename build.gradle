@@ -1,0 +1,87 @@
+plugins {
+    id "java"
+    id "com.github.johnrengelman.shadow" version "6.0.0"
+}
+
+group = pluginGroup
+version = pluginVersion
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    // Maven thingy
+    mavenCentral()
+
+    // Discord JDA
+    jcenter()
+
+    // Paper
+    maven {
+        name = 'papermc-repo'
+        url = 'https://papermc.io/repo/repository/maven-public/'
+    }
+
+    // Sonatype thing
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+
+    // ACF
+    maven {
+        url = "https://repo.aikar.co/content/groups/aikar/"
+    }
+    maven {
+        url = "https://hub.spigotmc.org/nexus/content/groups/public/"
+    }
+
+    // Vault
+    maven {
+        url = 'https://jitpack.io'
+    }
+
+}
+
+dependencies {
+    // java
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // paper
+    compileOnly 'com.destroystokyo.paper:paper-api:1.16.3-R0.1-SNAPSHOT'
+
+    // Vault
+    compileOnly "com.github.MilkBowl:VaultAPI:1.7"
+
+    // Matt's Framework
+    implementation "me.mattstudios.utils:matt-framework-gui:2.0.2"
+
+    // ACF
+    compile "co.aikar:acf-paper:0.5.0-SNAPSHOT"
+
+    // Discord
+    compile 'net.dv8tion:JDA:4.2.0_209'
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
+
+compileJava {
+    options.compilerArgs += ["-parameters"]
+    options.fork = true
+    options.forkOptions.executable = 'javac'
+}
+
+shadowJar {
+    // Matt's Framework
+    relocate 'me.mattstudios.mfgui', 'me.StilauGamer.Main.mfgui'
+
+    // ACF Framework
+    relocate 'co.aikar.commands', 'me.StilauGamer.Main.acf'
+    relocate 'co.aikar.locales', 'me.StilauGamer.Main.locales'
+}

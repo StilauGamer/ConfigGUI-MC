@@ -1,0 +1,12 @@
+#
+#
+# Gui customizable
+background: 'BLACK_STAINED_GLASS_PANE'
+#
+#
+# Discord
+Discord:
+  Token: 'token'
+
+  Notifications:
+    MessageChanged: true

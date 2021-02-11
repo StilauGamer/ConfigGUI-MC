@@ -1,0 +1,8 @@
+name: ConfigGUI-MC
+version: 1.0
+main: me.StilauGamer.Main
+api-version: 1.13
+depend: [Vault]
+authors: [StilauGamer]
+description: ConfigGUI. Made for deleting tons of plugins.
+website: me.StilauGamer.ConfigGUI
